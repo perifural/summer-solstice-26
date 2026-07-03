@@ -12,17 +12,7 @@ client = Cloudflare(
 record_response = client.dns.records.update(
     dns_record_id = config.DNS_RECORD_ID_APIC,
     zone_id = config.ZONE_ID,
-    name = config.DOMAIN_APIC,
-    type = "AAAA",
-    ttl = 60,
-    content = ipv6
-)
-print(record_response)
-
-record_response = client.dns.records.update(
-    dns_record_id = config.DNS_RECORD_ID_WWW,
-    zone_id = config.ZONE_ID,
-    name = config.DOMAIN_WWW,
+    name = config.DOMAIN_RPI,
     type = "AAAA",
     ttl = 60,
     content = ipv6

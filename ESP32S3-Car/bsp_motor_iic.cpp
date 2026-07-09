@@ -161,9 +161,12 @@ void Read_10_Enconder(void) {
 	// 当电机编码器的数据为负数  When motor encoder data is negative
 	for(uint8_t i = 0; i < 4; i++) {
 		if (Encoder_Offset[i] >= 32768) {
-			Encoder_Offset[i] = 65536 - Encoder_Offset[i];
+			Encoder_Offset[i] = -(65536 - Encoder_Offset[i]);
 		}
 	}
+
+	Encoder_Offset[0] = -Encoder_Offset[0];
+	Encoder_Offset[3] = -Encoder_Offset[3];
 }
 
 // 读取电机转动的编码器数据  Read the encoder data of the motor rotation

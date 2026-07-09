@@ -169,6 +169,14 @@ void Read_10_Enconder(void) {
 	Encoder_Offset[3] = -Encoder_Offset[3];
 }
 
+/*
+Read_10_Enconder();
+Serial.print("M1:"); Serial.print(Encoder_Offset[0]); Serial.print("\t");
+Serial.print("M2:"); Serial.print(Encoder_Offset[1]); Serial.print("\t");
+Serial.print("M3:"); Serial.print(Encoder_Offset[2]); Serial.print("\t");
+Serial.print("M4:"); Serial.print(Encoder_Offset[3]); Serial.println("\t");
+*/
+
 // 读取电机转动的编码器数据  Read the encoder data of the motor rotation
 void Read_ALL_Enconder(void) {
 	static uint8_t buf[2];
@@ -196,3 +204,11 @@ void Read_ALL_Enconder(void) {
 	i2cRead(Motor_model_ADDR, READ_ALLLOW_M4_REG, 2, buf2);
 	Encoder_Now[3] = buf[0] << 24 | buf[1] << 16 | buf2[0] << 8 | buf2[1];
 }
+
+/*
+Read_ALL_Enconder();
+Serial.print("M1:"); Serial.print(Encoder_Now[0]); Serial.print("\t");
+Serial.print("M2:"); Serial.print(Encoder_Now[1]); Serial.print("\t");
+Serial.print("M3:"); Serial.print(Encoder_Now[2]); Serial.print("\t");
+Serial.print("M4:"); Serial.print(Encoder_Now[3]); Serial.println("\t");
+*/

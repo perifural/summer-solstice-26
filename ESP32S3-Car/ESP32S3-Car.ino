@@ -44,7 +44,7 @@ void setup() {
 	delay(100);
 	Set_Wheel_dis(68.00);
 	delay(100);
-	Set_motor_deadzone(1900);
+	Set_motor_deadzone(1850);
 	delay(100);
 }
 
@@ -52,13 +52,17 @@ void loop() {
   // Xbox controller read
   ctrlRead();
 
+  // Xbox controller steady state tolerance
+  if (ctrlSpd > -2500 && ctrlSpd < 2500) ctrlSpd = 0;
+  if (ctrlDir > -2500 && ctrlDir < 2500) ctrlDir = 0;
+
   // Xbox controller input scaling
-  ctrlSpd /= 1000;
-  ctrlDir /= 2000;
+  ctrlSpd /= 15;
+  ctrlDir /= 30;
 
   // Convert to motor speed
-  int16_t spdL = ctrlSpd + ctrlDir; 
-  int16_t spdR = ctrlSpd - ctrlDir;
+  int16_t spdL = constrain(ctrlSpd + ctrlDir, -2000, 2000);
+  int16_t spdR = constrain(ctrlSpd - ctrlDir, -2000, 2000);
 
   // Motor speed control
   control_speed(spdL,spdR,spdL,spdR);

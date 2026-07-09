@@ -1,7 +1,40 @@
+// -----------------------------------------------------
 #include "bsp_motor_iic.hpp"
 
+// -----------------------------------------------------
+// Xbox controller
+#include <XboxSeriesXControllerESP32_asukiaaa.hpp>
+XboxSeriesXControllerESP32_asukiaaa::Core xboxController;
+
+uint8_t isCtrl = 0;
+int16_t ctrlSpd = 0;
+int16_t ctrlDir = 0;
+uint8_t ctrlA = 0;
+uint8_t ctrlY = 0;
+
+// Read Xbox controller input
+void ctrlRead() {
+  xboxController.onLoop();
+  if(xboxController.isConnected()){
+    isCtrl = 1;
+    ctrlSpd = (-1) * (xboxController.xboxNotif.joyLVert - 32767);
+    ctrlDir = xboxController.xboxNotif.joyRHori - 32767;
+    ctrlA = xboxController.xboxNotif.btnA;
+    ctrlY = xboxController.xboxNotif.btnY;
+  }else{
+    isCtrl = 0;
+  }
+}
+
+// -----------------------------------------------------
 void setup() {
+  // Serial monitor setup
   Serial.begin(115200);
+  
+  // Xbox controller setup
+  xboxController.begin();
+
+  // Motor control setup
   IIC_Motor_Init();
   Set_motor_type(3);  // 3:测速码盘TT电机
 	delay(100);
@@ -16,14 +49,27 @@ void setup() {
 }
 
 void loop() {
-  control_speed(0,0,0,0);
-  delay(100);
+  // Xbox controller read
+  ctrlRead();
 
-  Read_10_Enconder();
-  Serial.print("M1:"); Serial.print(Encoder_Offset[0]); Serial.print("\t");
-  Serial.print("M2:"); Serial.print(Encoder_Offset[1]); Serial.print("\t");
-  Serial.print("M3:"); Serial.print(Encoder_Offset[2]); Serial.print("\t");
-  Serial.print("M4:"); Serial.print(Encoder_Offset[3]); Serial.println("\t");
-  delay(100);
+  // Xbox controller input scaling
+  ctrlSpd /= 1000;
+  ctrlDir /= 2000;
+
+  // Convert to motor speed
+  int16_t spdL = ctrlSpd + ctrlDir; 
+  int16_t spdR = ctrlSpd - ctrlDir;
+
+  // Motor speed control
+  control_speed(spdL,spdR,spdL,spdR);
+
+  // delay(100);
+
+  // Read_10_Enconder();
+  // Serial.print("M1:"); Serial.print(Encoder_Offset[0]); Serial.print("\t");
+  // Serial.print("M2:"); Serial.print(Encoder_Offset[1]); Serial.print("\t");
+  // Serial.print("M3:"); Serial.print(Encoder_Offset[2]); Serial.print("\t");
+  // Serial.print("M4:"); Serial.print(Encoder_Offset[3]); Serial.println("\t");
+  // delay(100);
 }
 

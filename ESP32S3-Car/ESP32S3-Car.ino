@@ -11,7 +11,7 @@ void setup() {
 	delay(100);
 	Set_Wheel_dis(68.00);
 	delay(100);
-	Set_motor_deadzone(1250);
+	Set_motor_deadzone(1600);
 	delay(100);
 }
 

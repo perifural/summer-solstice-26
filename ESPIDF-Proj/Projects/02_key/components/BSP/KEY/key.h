@@ -1,0 +1,13 @@
+#ifndef __KEY_H_
+#define __KEY_H_
+
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "driver/gpio.h"
+
+#define BOOT_GPIO_PIN   GPIO_NUM_0
+
+void key_init(void);
+uint8_t key_scan(uint8_t keyMode);
+
+#endif

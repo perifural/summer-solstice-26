@@ -1,0 +1,89 @@
+# ESP-IDF build output
+build/
+**/build/
+build-*/
+
+# ESP-IDF generated files
+sdkconfig.old
+# Keep sdkconfig tracked so the project configuration is reproducible.
+# Uncomment the next line only if sdkconfig should remain machine-local.
+# sdkconfig
+
+# ESP-IDF Component Manager downloaded components
+managed_components/
+
+# Legacy/local ESP-IDF component metadata
+/components/.idf/
+**/components/.idf/
+
+# Project-local ESP-IDF tools installation
+.espressif/
+
+# CMake generated files outside the build directory
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+compile_commands.json
+
+# Compiled binaries and object files
+*.o
+*.obj
+*.a
+*.lib
+*.out
+*.exe
+*.bin
+*.elf
+*.map
+*.hex
+*.uf2
+
+# Python cache and environments
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+.venv/
+venv/
+env/
+
+# VS Code and other IDE-local files
+.vscode/
+.idea/
+.clangd/
+.ccls-cache/
+*.code-workspace
+*.user
+*.suo
+*.sln.docstates
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# Local environment variables and secrets
+.env
+.env.*
+!.env.example
+secrets.h
+credentials.h
+wifi_credentials.h
+*.key
+*.p12
+*.pfx
+
+# Operating-system metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+.directory
+Thumbs.db
+ehthumbs.db
+Desktop.ini

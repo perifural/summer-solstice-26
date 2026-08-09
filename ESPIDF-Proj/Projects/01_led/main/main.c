@@ -9,7 +9,7 @@ void app_main(void)
 
     while(1)
     {
-        LED_TOGGLE();
+        led_toggle();
         vTaskDelay(500);
     }
 }
